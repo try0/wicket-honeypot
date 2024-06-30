@@ -17,6 +17,10 @@ public class HoneypotBehaviorConfig implements Serializable {
 	 * Js Template variable key of autocomplete.
 	 */
 	public static final String VAR_AUTOCOMPLETE = "autocomplete";
+	/**
+	 * Js Template variable key of isBlockSubmit.
+	 */
+	public static final String VAR_BLOCK_SUBMIT = "isBlockSubmit";
 
 	/**
 	 * config values
@@ -30,6 +34,7 @@ public class HoneypotBehaviorConfig implements Serializable {
 		// default values
 		setDelay(0);
 		setAutocomplete("one-time-code");
+		setBlockSubmit(false);
 	}
 
 	/**
@@ -60,6 +65,15 @@ public class HoneypotBehaviorConfig implements Serializable {
 	}
 
 	/**
+	 * Sets whether to block submits on the client.
+	 * 
+	 * @param blockSubmit
+	 */
+	public void setBlockSubmit(boolean blockSubmit) {
+		variables.put(VAR_BLOCK_SUBMIT, blockSubmit ? "true" : "false");
+	}
+
+	/**
 	 * Gets config values as Map.
 	 * 
 	 * @return
@@ -79,6 +93,10 @@ public class HoneypotBehaviorConfig implements Serializable {
 		}
 
 		if (!variables.get(VAR_AUTOCOMPLETE).equals("one-time-code")) {
+			return false;
+		}
+
+		if (!variables.get(VAR_BLOCK_SUBMIT).equals("false")) {
 			return false;
 		}
 
