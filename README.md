@@ -1,10 +1,6 @@
 # wicket-honeypot
 Adds honeypot field to the form.
 
-```html
-<input type="text" id="hpb-id-0" name="hpb-id" class="hpb-f" aria-hidden="true" tabindex="-1" autocomplete="one-time-code" style="visibility: hidden; position: fixed; z-index: 0; bottom: 0px; left: 0px; width: 0px; margin: 0px 0px 0px -10em;">
-```
-
 
 
 ```java
@@ -14,6 +10,20 @@ add(new Form<Void>("form") {
     }
 });
 ```
+
+```html
+<input 
+    type="text" 
+    id="hpb-id-0" 
+    name="hpb-id" 
+    class="hpb-f" 
+    aria-hidden="true" 
+    tabindex="-1" 
+    autocomplete="one-time-code" 
+    style="visibility: hidden; position: fixed; z-index: 0; bottom: 0px; left: 0px; width: 0px; margin: 0px 0px 0px -10em;">
+```
+
+
 
 HoneypotBehavior uses JavaScript on the client side to add a honeypot field to the form. The added field is of type text and will be hidden using styles.
 To distinguish between bot actions and user actions, the field addition process can be executed with a delay.
