@@ -77,6 +77,7 @@ public class HoneypotBehavior extends Behavior {
 				// missing honeypot field
 				if (!postParams.getParameterNames().contains(HONEYPOT_FIELD_NAME)) {
 					onError(form);
+					return;
 				}
 
 				// check honeypot field
@@ -84,6 +85,7 @@ public class HoneypotBehavior extends Behavior {
 				if (!paramValue.isEmpty()) {
 					// entered by a bot
 					onError(form);
+					return;
 				}
 
 			}
