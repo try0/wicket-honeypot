@@ -1,5 +1,6 @@
 package jp.try0.wicket.honeypot.behavior;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.collections4.map.HashedMap;
@@ -108,7 +109,7 @@ public class HoneypotBehavior extends Behavior {
 			response.render(JavaScriptHeaderItem.forReference(JS_NO_DELAY_REFERENCE));
 		} else {
 			// with delay
-			Map<String, Object> variables = new HashedMap<>();
+			Map<String, Object> variables = new HashMap<>();
 			variables.put(VAR_NAME_DELAY, String.valueOf(delayMilliseconds));
 			TextTemplateResourceReference jsReference = new TextTemplateResourceReference(HoneypotBehavior.class,
 					HoneypotBehavior.class.getSimpleName() + ".js", "text/javascript", Model.ofMap(variables));
