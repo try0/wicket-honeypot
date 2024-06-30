@@ -27,7 +27,7 @@ public class HomePage extends WebPage {
 		add(new Form<Void>("form") {
 
 			{
-				add(new HoneypotBehavior());
+				add(new HoneypotBehavior(2500));
 
 				add(new TextField<String>("account", account));
 				add(new PasswordTextField("pass", pass));
