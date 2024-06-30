@@ -1,5 +1,7 @@
 addEventListener("DOMContentLoaded", function() {
 
+	var delay = Number("${delay}");
+
 	var setStyles = function(hpElm) {
 		hpElm.className = "hpb-f";
 
@@ -11,24 +13,21 @@ addEventListener("DOMContentLoaded", function() {
 		hpElm.style.width = "0px";
 	}
 
-	var forms = document.querySelectorAll("form");
-	if (forms) {
-		for (let i = 0; i < forms.length; i++) {
-			let form = forms[i];
+	setTimeout(function() {
+		var forms = document.querySelectorAll("form");
+		if (forms) {
+			for (let i = 0; i < forms.length; i++) {
+				let form = forms[i];
 
-			var hpLabel = document.createElement("label");
-			hpLabel.for = "hpb-id";
-			hpLabel.innerText = "ID";
-			setStyles(hpLabel);
-			form.append(hpLabel);
-
-			var hpField = document.createElement("input");
-			hpField.type = "text";
-			hpField.value = "";
-			hpField.id = "hpb-id";
-			hpField.name = "hpb-id";
-			setStyles(hpField);
-			form.append(hpField);
+				var hpField = document.createElement("input");
+				hpField.type = "text";
+				hpField.value = "";
+				hpField.id = "hpb-id";
+				hpField.name = "hpb-id";
+				setStyles(hpField);
+				form.append(hpField);
+			}
 		}
-	}
+	}, delay);
+
 });

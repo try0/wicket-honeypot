@@ -1,5 +1,8 @@
 package jp.try0.wicket.honeypot.behavior;
 
+import java.util.Map;
+
+import org.apache.commons.collections4.map.HashedMap;
 import org.apache.wicket.Component;
 import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.markup.head.CssReferenceHeaderItem;
@@ -8,9 +11,10 @@ import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.markup.html.form.validation.AbstractFormValidator;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.request.IRequestParameters;
 import org.apache.wicket.request.resource.CssResourceReference;
-import org.apache.wicket.request.resource.JavaScriptResourceReference;
+import org.apache.wicket.resource.TextTemplateResourceReference;
 import org.apache.wicket.util.string.StringValue;
 
 /**
@@ -20,16 +24,36 @@ public class HoneypotBehavior extends Behavior {
 
 	private final static String HONEYPOT_FIELD_NAME = "hpb-id";
 
-	public final static JavaScriptResourceReference JS_REFERENCE = new JavaScriptResourceReference(
-			HoneypotBehavior.class,
-			HoneypotBehavior.class.getSimpleName() + ".js");
+	private final static String VAR_NAME_DELAY = "delay";
 
+	/**
+	 * default js reference
+	 */
+	public final static TextTemplateResourceReference JS_NO_DELAY_REFERENCE;
+
+	/**
+	 * css reference
+	 */
 	public final static CssResourceReference CSS_REFERENCE = new CssResourceReference(HoneypotBehavior.class,
 			HoneypotBehavior.class.getSimpleName() + ".css");
 
+	static {
+		// create default instance
+		Map<String, Object> variables = new HashedMap<>();
+		variables.put(VAR_NAME_DELAY, String.valueOf(0));
+		JS_NO_DELAY_REFERENCE = new TextTemplateResourceReference(HoneypotBehavior.class,
+				HoneypotBehavior.class.getSimpleName() + ".js", "text/javascript", Model.ofMap(variables));
+	}
+
 	private Form<?> form;
 
+	private int delayMilliseconds = 0;
+
 	public HoneypotBehavior() {
+	}
+
+	public HoneypotBehavior(int delayMilliseconds) {
+		this.delayMilliseconds = delayMilliseconds;
 	}
 
 	@Override
@@ -80,10 +104,26 @@ public class HoneypotBehavior extends Behavior {
 	public void renderHead(Component component, IHeaderResponse response) {
 		super.renderHead(component, response);
 
-		response.render(JavaScriptHeaderItem.forReference(JS_REFERENCE));
+		if (delayMilliseconds == 0) {
+			response.render(JavaScriptHeaderItem.forReference(JS_NO_DELAY_REFERENCE));
+		} else {
+			// with delay
+			Map<String, Object> variables = new HashedMap<>();
+			variables.put(VAR_NAME_DELAY, String.valueOf(delayMilliseconds));
+			TextTemplateResourceReference jsReference = new TextTemplateResourceReference(HoneypotBehavior.class,
+					HoneypotBehavior.class.getSimpleName() + ".js", "text/javascript", Model.ofMap(variables));
+			response.render(JavaScriptHeaderItem.forReference(jsReference));
+		}
+
 		response.render(CssReferenceHeaderItem.forReference(CSS_REFERENCE));
 	}
 
+	/**
+	 * If the name of the honeypot field is missing from the request parameters 
+	 * or if it contains any value, an error will occur.
+	 * 
+	 * @param form
+	 */
 	protected void onError(Form<?> form) {
 		String errorMessage = form.getString("HoneypotBehavior.error", null, "Invalid request.");
 		form.error(errorMessage);
