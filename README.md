@@ -10,7 +10,7 @@ add(new Form<Void>("form") {
 });
 ```
 
-HoneypotBehavior adds a honeypot field to the form. The added field is of type text and will be hidden using styles.
+HoneypotBehavior uses JavaScript on the client side to add a honeypot field to the form. The added field is of type text and will be hidden using styles.
 To distinguish between bot actions and user actions, the field addition process can be executed with a delay.
 
 ```java
