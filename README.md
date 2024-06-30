@@ -1,6 +1,11 @@
 # wicket-honeypot
 Adds honeypot field to the form.
 
+```html
+<input type="text" id="hpb-id-0" name="hpb-id" class="hpb-f" aria-hidden="true" tabindex="-1" autocomplete="one-time-code" style="visibility: hidden; position: fixed; z-index: 0; bottom: 0px; left: 0px; width: 0px; margin: 0px 0px 0px -10em;">
+```
+
+
 
 ```java
 add(new Form<Void>("form") {
