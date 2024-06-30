@@ -1,5 +1,5 @@
 # wicket-honeypot
-Adds honeypot to form.
+Adds honeypot field to the form.
 
 
 ```java
