@@ -3,7 +3,6 @@ package jp.try0.wicket.honeypot.behavior;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.collections4.map.HashedMap;
 import org.apache.wicket.Component;
 import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.markup.head.CssReferenceHeaderItem;
@@ -40,7 +39,7 @@ public class HoneypotBehavior extends Behavior {
 
 	static {
 		// create default instance
-		Map<String, Object> variables = new HashedMap<>();
+		Map<String, Object> variables = new HashMap<>();
 		variables.put(VAR_NAME_DELAY, String.valueOf(0));
 		JS_NO_DELAY_REFERENCE = new TextTemplateResourceReference(HoneypotBehavior.class,
 				HoneypotBehavior.class.getSimpleName() + ".js", "text/javascript", Model.ofMap(variables));
