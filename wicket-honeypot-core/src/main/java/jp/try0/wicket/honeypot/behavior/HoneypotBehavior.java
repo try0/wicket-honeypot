@@ -1,8 +1,5 @@
 package jp.try0.wicket.honeypot.behavior;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.wicket.Component;
 import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.markup.head.CssReferenceHeaderItem;
@@ -24,8 +21,6 @@ public class HoneypotBehavior extends Behavior {
 
 	private final static String HONEYPOT_FIELD_NAME = "hpb-id";
 
-	private final static String VAR_NAME_DELAY = "delay";
-
 	/**
 	 * default js reference
 	 */
@@ -38,29 +33,51 @@ public class HoneypotBehavior extends Behavior {
 			HoneypotBehavior.class.getSimpleName() + ".css");
 
 	static {
-		// create default instance
-		Map<String, Object> variables = new HashMap<>();
-		variables.put(VAR_NAME_DELAY, String.valueOf(0));
+		// create default instance		
 		JS_NO_DELAY_REFERENCE = new TextTemplateResourceReference(HoneypotBehavior.class,
-				HoneypotBehavior.class.getSimpleName() + ".js", "text/javascript", Model.ofMap(variables));
+				HoneypotBehavior.class.getSimpleName() + ".js", "text/javascript",
+				Model.ofMap(new HoneypotBehaviorConfig().asMap()));
 	}
 
+	/**
+	 * target
+	 */
 	private Form<?> form;
 
-	private int delayMilliseconds = 0;
+	/**
+	 * configs
+	 */
+	private HoneypotBehaviorConfig config = new HoneypotBehaviorConfig();
 
+	/**
+	 * Constructor.
+	 */
 	public HoneypotBehavior() {
 	}
 
+	/**
+	 * Constructor.
+	 * 
+	 * @param delayMilliseconds
+	 */
 	public HoneypotBehavior(int delayMilliseconds) {
-		this.delayMilliseconds = delayMilliseconds;
+		config.setDelay(delayMilliseconds);
+	}
+
+	/**
+	 * Constructor.
+	 * 
+	 * @param config
+	 */
+	public HoneypotBehavior(HoneypotBehaviorConfig config) {
+		this.config = config;
 	}
 
 	@Override
 	public void bind(Component component) {
 
 		if (!(component instanceof Form<?>)) {
-			throw new UnsupportedOperationException("Add HoneypotBehavior to FormComponent.");
+			throw new UnsupportedOperationException("Add HoneypotBehavior to Form.");
 		}
 
 		super.bind(component);
@@ -106,14 +123,12 @@ public class HoneypotBehavior extends Behavior {
 	public void renderHead(Component component, IHeaderResponse response) {
 		super.renderHead(component, response);
 
-		if (delayMilliseconds == 0) {
+		if (config.isDefault()) {
 			response.render(JavaScriptHeaderItem.forReference(JS_NO_DELAY_REFERENCE));
 		} else {
-			// with delay
-			Map<String, Object> variables = new HashMap<>();
-			variables.put(VAR_NAME_DELAY, String.valueOf(delayMilliseconds));
+			// with custom config
 			TextTemplateResourceReference jsReference = new TextTemplateResourceReference(HoneypotBehavior.class,
-					HoneypotBehavior.class.getSimpleName() + ".js", "text/javascript", Model.ofMap(variables));
+					HoneypotBehavior.class.getSimpleName() + ".js", "text/javascript", Model.ofMap(config.asMap()));
 			response.render(JavaScriptHeaderItem.forReference(jsReference));
 		}
 

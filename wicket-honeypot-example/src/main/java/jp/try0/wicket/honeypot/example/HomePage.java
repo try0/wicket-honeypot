@@ -27,7 +27,7 @@ public class HomePage extends WebPage {
 		add(new Form<Void>("form") {
 
 			{
-				add(new HoneypotBehavior());
+				add(new HoneypotBehavior(3000));
 
 				add(new TextField<String>("account", account));
 				add(new PasswordTextField("pass", pass));
@@ -37,6 +37,8 @@ public class HomePage extends WebPage {
 					@Override
 					public void onSubmit() {
 						super.onSubmit();
+
+						info("Success submit");
 					}
 				});
 			}
