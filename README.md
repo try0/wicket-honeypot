@@ -28,6 +28,8 @@ add(new Form<Void>("form") {
 HoneypotBehavior uses JavaScript on the client side to add a honeypot field to the form. The added field is of type text and will be hidden using styles.
 To distinguish between bot actions and user actions, the field addition process can be executed with a delay.
 
+For example, this code determines that requests made within two seconds of the screen being displayed are bot actions.
+
 ```java
 add(new Form<Void>("form") {
     {
@@ -37,8 +39,8 @@ add(new Form<Void>("form") {
 });
 ```
 
-For example, this code determines that requests made within two seconds of the screen being displayed are bot actions.
 
+To display a message and request form resubmission when a user action is mistakenly identified as a bot action, please override the onError method.
 
 ```java
 add(new Form<Void>("form") {
@@ -55,4 +57,26 @@ add(new Form<Void>("form") {
 ```
 
 
-To display a message and request form resubmission when a user action is mistakenly identified as a bot action, please override the onError method.
+
+
+
+With other configs.
+
+```java
+add(new Form<Void>("form") {
+    {
+        // custom config
+        HoneypotBehaviorConfig config = new HoneypotBehaviorConfig();
+        // the field addition process can be executed with a delay.
+        // default: 0
+        config.setDelay(1500);
+        // honeypot field autocomplete attr.
+        // default: one-time-code
+        config.setAutocomplete("one-time-code");
+        // block submit on the client.
+        // default: false
+        config.setBlockSubmit(true);
+        add(new HoneypotBehavior(config));
+    }
+});
+```
