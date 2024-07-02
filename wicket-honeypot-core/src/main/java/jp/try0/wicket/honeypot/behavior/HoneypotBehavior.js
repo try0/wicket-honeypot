@@ -1,11 +1,11 @@
 document.addEventListener("DOMContentLoaded", function() {
 
 	// configs
-	var delay = Number("${delay}");
-	var autocomplete = "${autocomplete}";
-	var isBlockSubmit = Boolean("${isBlockSubmit}");
-	var detectHumanActivity = Boolean("${detectHumanActivity}");
-	var name = "hpb-id";
+	const delay = Number("${delay}");
+	const autocomplete = "${autocomplete}";
+	const isBlockSubmit = Boolean("${isBlockSubmit}");
+	const detectHumanActivity = Boolean("${detectHumanActivity}");
+	const name = "hpb-id";
 
 	// hidden style
 	function hide(hpElm) {
@@ -21,9 +21,9 @@ document.addEventListener("DOMContentLoaded", function() {
 	}
 
 
-	var executedAppendField = false;
-	var isHuman = false;
-	var passedDelay = false;
+	let executedAppendField = false;
+	let isHuman = false;
+	let passedDelay = false;
 
 
 	// Appends honeypot field
@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			return;
 		}
 
-		var forms = document.querySelectorAll("form");
+		let forms = document.querySelectorAll("form");
 		if (forms && forms.length > 0) {
 			for (let i = 0; i < forms.length; i++) {
 				let form = forms[i];
@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function() {
 				}
 
 				// add element
-				var hpField = document.createElement("input");
+				let hpField = document.createElement("input");
 				hpField.type = "text";
 				hpField.value = "";
 				hpField.id = name + "-" + i;
@@ -79,8 +79,8 @@ document.addEventListener("DOMContentLoaded", function() {
 	}
 
 	if (isBlockSubmit) {
-		var blockSubmit = function(event) {
-			var inputs = document.getElementsByName(name);
+		function blockSubmit(event) {
+			let inputs = document.getElementsByName(name);
 			if (inputs && inputs.length > 0) {
 				for (let i = 0; i < inputs.length; i++) {
 					let input = inputs[i];
@@ -97,7 +97,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			}
 		}
 
-		var forms = document.querySelectorAll("form");
+		let forms = document.querySelectorAll("form");
 		if (forms && forms.length > 0) {
 			for (let i = 0; i < forms.length; i++) {
 				let form = forms[i];
