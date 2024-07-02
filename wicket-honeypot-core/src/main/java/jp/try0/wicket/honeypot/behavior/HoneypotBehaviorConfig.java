@@ -3,6 +3,7 @@ package jp.try0.wicket.honeypot.behavior;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * {@link HoneypotBehavior}'s config.
@@ -22,19 +23,16 @@ public class HoneypotBehaviorConfig implements Serializable {
 	 */
 	public static final String VAR_BLOCK_SUBMIT = "isBlockSubmit";
 
-	/**
-	 * config values
-	 */
-	private Map<String, Object> variables = new HashMap<>();
+	private int delay = 0;
+
+	private String autocomplete = "one-time-code";
+
+	private boolean blockSubmit = false;
 
 	/**
 	 * Constructor
 	 */
 	public HoneypotBehaviorConfig() {
-		// default values
-		setDelay(0);
-		setAutocomplete("one-time-code");
-		setBlockSubmit(false);
 	}
 
 	/**
@@ -47,7 +45,7 @@ public class HoneypotBehaviorConfig implements Serializable {
 			delayMillisecond = 0;
 		}
 
-		variables.put(VAR_DELAY, String.valueOf(delayMillisecond));
+		this.delay = delayMillisecond;
 	}
 
 	/**
@@ -56,12 +54,7 @@ public class HoneypotBehaviorConfig implements Serializable {
 	 * @param autocomplete
 	 */
 	public void setAutocomplete(String autocomplete) {
-		if (autocomplete == null || autocomplete.isEmpty()) {
-			variables.put(VAR_AUTOCOMPLETE, "");
-			return;
-		}
-
-		variables.put(VAR_AUTOCOMPLETE, autocomplete);
+		this.autocomplete = autocomplete;
 	}
 
 	/**
@@ -70,7 +63,7 @@ public class HoneypotBehaviorConfig implements Serializable {
 	 * @param blockSubmit
 	 */
 	public void setBlockSubmit(boolean blockSubmit) {
-		variables.put(VAR_BLOCK_SUBMIT, blockSubmit ? "true" : "false");
+		this.blockSubmit = blockSubmit;
 	}
 
 	/**
@@ -79,7 +72,11 @@ public class HoneypotBehaviorConfig implements Serializable {
 	 * @return
 	 */
 	public Map<String, Object> asMap() {
-		return new HashMap<String, Object>(variables);
+		Map<String, Object> variables = new HashMap<>();
+		variables.put(VAR_AUTOCOMPLETE, autocomplete == null ? "" : autocomplete);
+		variables.put(VAR_DELAY, delay);
+		variables.put(VAR_BLOCK_SUBMIT, blockSubmit ? "true" : "false");
+		return variables;
 	}
 
 	/**
@@ -88,18 +85,39 @@ public class HoneypotBehaviorConfig implements Serializable {
 	 * @return
 	 */
 	public boolean isDefault() {
-		if (!variables.get(VAR_DELAY).equals("0")) {
+		if (delay != 0) {
 			return false;
 		}
 
-		if (!variables.get(VAR_AUTOCOMPLETE).equals("one-time-code")) {
+		if (!"one-time-code".equals(autocomplete)) {
 			return false;
 		}
 
-		if (!variables.get(VAR_BLOCK_SUBMIT).equals("false")) {
+		if (!blockSubmit) {
 			return false;
 		}
 
 		return true;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+
+		HoneypotBehaviorConfig that = (HoneypotBehaviorConfig) o;
+		return delay == that.delay &&
+				blockSubmit == that.blockSubmit &&
+				Objects.equals(autocomplete, that.autocomplete);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(delay, autocomplete, blockSubmit);
 	}
 }
