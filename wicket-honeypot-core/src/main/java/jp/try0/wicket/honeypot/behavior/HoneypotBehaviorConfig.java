@@ -22,12 +22,18 @@ public class HoneypotBehaviorConfig implements Serializable {
 	 * Js Template variable key of isBlockSubmit.
 	 */
 	public static final String VAR_BLOCK_SUBMIT = "isBlockSubmit";
+	/**
+	 * Js Template variable key of detectHumanActivity.
+	 */
+	public static final String VAR_DETECT_HUMAN_ACTIVITY = "detectHumanActivity";
 
 	private int delay = 0;
 
 	private String autocomplete = "one-time-code";
 
 	private boolean blockSubmit = false;
+
+	private boolean detectHumanActivity = false;
 
 	/**
 	 * Constructor
@@ -67,6 +73,16 @@ public class HoneypotBehaviorConfig implements Serializable {
 	}
 
 	/**
+	 * Sets whether to monitor [keydown, mousemove, touchstart, touchmove, scroll] event on the client.<br>
+	 * If none of these events are detected, assume the user is a bot.
+	 * 
+	 * @param requireHumanActivity
+	 */
+	public void setDetectHumanActivity(boolean detectHumanActivity) {
+		this.detectHumanActivity = detectHumanActivity;
+	}
+
+	/**
 	 * Gets config values as Map.
 	 * 
 	 * @return
@@ -76,6 +92,7 @@ public class HoneypotBehaviorConfig implements Serializable {
 		variables.put(VAR_AUTOCOMPLETE, autocomplete == null ? "" : autocomplete);
 		variables.put(VAR_DELAY, delay);
 		variables.put(VAR_BLOCK_SUBMIT, blockSubmit ? "true" : "false");
+		variables.put(VAR_DETECT_HUMAN_ACTIVITY, detectHumanActivity ? "true" : "false");
 		return variables;
 	}
 
@@ -93,7 +110,11 @@ public class HoneypotBehaviorConfig implements Serializable {
 			return false;
 		}
 
-		if (!blockSubmit) {
+		if (blockSubmit) {
+			return false;
+		}
+
+		if (detectHumanActivity) {
 			return false;
 		}
 
@@ -113,11 +134,12 @@ public class HoneypotBehaviorConfig implements Serializable {
 		HoneypotBehaviorConfig that = (HoneypotBehaviorConfig) o;
 		return delay == that.delay &&
 				blockSubmit == that.blockSubmit &&
+				detectHumanActivity == that.detectHumanActivity &&
 				Objects.equals(autocomplete, that.autocomplete);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(delay, autocomplete, blockSubmit);
+		return Objects.hash(delay, autocomplete, blockSubmit, detectHumanActivity);
 	}
 }
