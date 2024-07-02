@@ -78,7 +78,7 @@ add(new Form<Void>("form") {
         config.setBlockSubmit(true);
         // If none of [keydown, mousemove, touchstart, touchmove, scroll] events are detected, assume the user is a bot.
         // default: false
-		config.setDetectHumanActivity(true);
+        config.setDetectHumanActivity(true);
 
         add(new HoneypotBehavior(config));
     }
