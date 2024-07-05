@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + TS</title>
+
+    <style>
+        form label {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <form>
+            <div>
+                <label for="account">Account</label>
+                <input id="account" type="text">
+            </div>
+            <div>
+                <label for="password">Password</label>
+                <input id="password" type="password">
+            </div>
+            <div>
+                <button type="submit">Login</button>
+            </div>
+        </form>
+    </div>
+    <script type="module" src="/src/main.ts">  </script>
+    <script type="module">
+        import { HoneypotBehavior } from "/src/main.ts";
+
+        const config = {
+            name: "hpb-id",
+            delay: 0,
+            autocomplete: "one-time-code",
+            isBlockSubmit: false,
+            detectHumanActivity: false,
+        }
+
+        new HoneypotBehavior(config).init();
+    </script>
+</body>
+
+</html>
