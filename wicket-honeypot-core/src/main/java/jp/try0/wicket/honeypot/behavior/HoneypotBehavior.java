@@ -9,6 +9,7 @@ import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.markup.html.form.validation.AbstractFormValidator;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.IRequestParameters;
+import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.apache.wicket.resource.TextTemplateResourceReference;
 import org.apache.wicket.util.string.StringValue;
 
@@ -20,15 +21,14 @@ public class HoneypotBehavior extends Behavior {
 	private final static String HONEYPOT_FIELD_NAME = "hpb-id";
 
 	/**
-	 * default js reference
+	 * js reference
 	 */
-	public final static TextTemplateResourceReference JS_NO_DELAY_REFERENCE;
+	public final static JavaScriptResourceReference JS_REFERENCE;
 
 	static {
 		// create default instance		
-		JS_NO_DELAY_REFERENCE = new TextTemplateResourceReference(HoneypotBehavior.class,
-				HoneypotBehavior.class.getSimpleName() + ".js", "text/javascript",
-				Model.ofMap(new HoneypotBehaviorConfig().asMap()));
+		JS_REFERENCE = new JavaScriptResourceReference(HoneypotBehavior.class,
+				HoneypotBehavior.class.getSimpleName() + ".min.js");
 	}
 
 	/**
@@ -115,14 +115,13 @@ public class HoneypotBehavior extends Behavior {
 	public void renderHead(Component component, IHeaderResponse response) {
 		super.renderHead(component, response);
 
-		if (config.isDefault()) {
-			response.render(JavaScriptHeaderItem.forReference(JS_NO_DELAY_REFERENCE));
-		} else {
-			// with custom config
-			TextTemplateResourceReference jsReference = new TextTemplateResourceReference(HoneypotBehavior.class,
-					HoneypotBehavior.class.getSimpleName() + ".js", "text/javascript", Model.ofMap(config.asMap()));
-			response.render(JavaScriptHeaderItem.forReference(jsReference));
-		}
+		response.render(JavaScriptHeaderItem.forReference(JS_REFERENCE));
+
+		// with custom config
+		TextTemplateResourceReference jsReference = new TextTemplateResourceReference(HoneypotBehavior.class,
+				HoneypotBehavior.class.getSimpleName() + ".init.js", "text/javascript", Model.ofMap(config.asMap()));
+		response.render(JavaScriptHeaderItem.forReference(jsReference));
+
 	}
 
 	/**

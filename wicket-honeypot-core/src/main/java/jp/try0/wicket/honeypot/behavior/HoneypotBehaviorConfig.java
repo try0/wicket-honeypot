@@ -21,7 +21,7 @@ public class HoneypotBehaviorConfig implements Serializable {
 	/**
 	 * Js Template variable key of isBlockSubmit.
 	 */
-	public static final String VAR_BLOCK_SUBMIT = "isBlockSubmit";
+	public static final String VAR_BLOCK_SUBMIT = "blockSubmit";
 	/**
 	 * Js Template variable key of detectHumanActivity.
 	 */
