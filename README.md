@@ -1,7 +1,44 @@
 # wicket-honeypot
 Adds honeypot field to the form.
 
+## Version
 
+
+| Version | Wicket |
+| ---- | ---- |
+| [3.0.0](https://search.maven.org/artifact/jp.try0.wicket/wicket-honeypot-core/3.0.0/jar) | 10.x |
+| [2.0.0](https://search.maven.org/artifact/jp.try0.wicket/wicket-honeypot-core/2.0.0/jar) | 9.x |
+| [1.0.0](https://search.maven.org/artifact/jp.try0.wicket/wicket-honeypot-core/1.0.0/jar)  | 8.x |
+
+Wicket 10.x
+```xml
+<dependency>
+    <groupId>jp.try0.wicket</groupId>
+    <artifactId>wicket-honeypot-core</artifactId>
+    <version>3.0.0</version>
+</dependency>
+```
+
+Wicket 9.x
+```xml
+<dependency>
+    <groupId>jp.try0.wicket</groupId>
+    <artifactId>wicket-honeypot-core</artifactId>
+    <version>2.0.0</version>
+</dependency>
+```
+
+Wicket 8.x
+```xml
+<dependency>
+    <groupId>jp.try0.wicket</groupId>
+    <artifactId>wicket-honeypot-core</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
+
+
+## Usage
 
 ```java
 add(new Form<Void>("form") {
