@@ -24,7 +24,7 @@
 	<parent>
 		<artifactId>wicket-honeypot-parent</artifactId>
 		<groupId>jp.try0.wicket</groupId>
-		<version>2.0.0</version>
+		<version>3.0.0</version>
 	</parent>
 	<artifactId>wicket-honeypot-example</artifactId>
 	<packaging>war</packaging>
@@ -55,7 +55,7 @@
 		<dependency>
 			<groupId>jp.try0.wicket</groupId>
 			<artifactId>wicket-honeypot-core</artifactId>
-			<version>2.0.0</version>
+			<version>3.0.0</version>
 		</dependency>
 
 		<!--  WICKET DEPENDENCIES -->

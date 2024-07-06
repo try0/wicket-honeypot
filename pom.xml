@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>jp.try0.wicket</groupId>
     <artifactId>wicket-honeypot-parent</artifactId>
-    <version>2.0.0</version>
+    <version>3.0.0</version>
     <packaging>pom</packaging>
 
     <modules>
@@ -41,9 +41,9 @@
     </scm>
 
     <properties>
-        <java.version>11</java.version>
+        <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <wicket.version>9.0.0</wicket.version>
+        <wicket.version>10.0.0</wicket.version>
         <guava.version>32.0.0-jre</guava.version>
         <collections4.version>4.2</collections4.version>
 
@@ -62,12 +62,12 @@
     <dependencies>
 
         <!-- TEST DEPENDENCIES -->
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>3.0.1</version>
-            <scope>test</scope>
-        </dependency>
+		<dependency>
+			<groupId>jakarta.servlet</groupId>
+			<artifactId>jakarta.servlet-api</artifactId>
+			<version>6.0.0</version>
+			<scope>test</scope>
+		</dependency>
 
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -110,6 +110,12 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+			<groupId>org.apache.wicket</groupId>
+			<artifactId>wicket-tester</artifactId>
+			<scope>test</scope>
+		</dependency>
+
     </dependencies>
 
     <dependencyManagement>
@@ -133,6 +139,12 @@
                 <artifactId>wicket-util</artifactId>
                 <version>${wicket.version}</version>
             </dependency>
+
+			<dependency>
+				<groupId>org.apache.wicket</groupId>
+				<artifactId>wicket-tester</artifactId>
+				<version>${wicket.version}</version>
+			</dependency>
 
             <dependency>
                 <groupId>com.google.guava</groupId>
