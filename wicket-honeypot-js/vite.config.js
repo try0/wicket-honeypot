@@ -10,4 +10,15 @@ export default defineConfig({
       formats: ['es', 'umd'],
     },
   },
+  test: {
+    browser: {
+      enabled: true,
+      headless: true, 
+      name: 'chrome',
+    },
+    include: [
+      'tests/browser/**/*.{test,spec}.ts',
+      'tests/**/*.browser.{test,spec}.ts',
+    ],
+  }
 })

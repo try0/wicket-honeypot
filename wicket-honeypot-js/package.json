@@ -6,10 +6,17 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build && node after_build.mjs",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest",
+    "test:ui": "vitest --ui"
   },
   "devDependencies": {
+    "@testing-library/user-event": "^14.5.2",
+    "@vitest/browser": "^1.6.0",
+    "@vitest/ui": "^1.6.0",
     "typescript": "^5.2.2",
-    "vite": "^5.3.1"
+    "vite": "^5.3.1",
+    "vitest": "^1.6.0",
+    "webdriverio": "^8.39.1"
   }
 }
