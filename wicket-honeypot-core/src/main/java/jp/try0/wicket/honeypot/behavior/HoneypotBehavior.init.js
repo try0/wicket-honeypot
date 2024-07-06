@@ -4,8 +4,8 @@ document.addEventListener("DOMContentLoaded", function () {
         name: "hpb-id",
         delay: Number("${delay}"),
         autocomplete: "${autocomplete}",
-        blockSubmit: Boolean("${blockSubmit}"),
-        detectHumanActivity: Boolean("${detectHumanActivity}"),
+        blockSubmit: "${blockSubmit}".toLowerCase() === "true",
+        detectHumanActivity: "${detectHumanActivity}".toLowerCase() === "true",
     }
 
     new jp.try0.wicket.HoneypotBehavior(config).init();
