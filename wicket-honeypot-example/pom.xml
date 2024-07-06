@@ -14,19 +14,22 @@
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
---><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-    <artifactId>wicket-honeypot-parent</artifactId>
-    <groupId>jp.try0.wicket</groupId>
-    <version>0.0.1-SNAPSHOT</version>
-  </parent>
+		<artifactId>wicket-honeypot-parent</artifactId>
+		<groupId>jp.try0.wicket</groupId>
+		<version>1.0.0</version>
+	</parent>
 	<artifactId>wicket-honeypot-example</artifactId>
 	<packaging>war</packaging>
-		<!-- TODO project name  -->
-	<name>quickstart</name>
+	<!-- TODO project name  -->
+	<name>wicket-honeypot-example</name>
 	<!--
 		<organization>
 			<name>company name</name>
@@ -48,13 +51,13 @@
 		<wtp.version>none</wtp.version>
 	</properties>
 	<dependencies>
-		
+
 		<dependency>
 			<groupId>jp.try0.wicket</groupId>
-  			<artifactId>wicket-honeypot-core</artifactId>
-    		<version>0.0.1-SNAPSHOT</version>
+			<artifactId>wicket-honeypot-core</artifactId>
+			<version>1.0.0</version>
 		</dependency>
-		
+
 		<!--  WICKET DEPENDENCIES -->
 		<dependency>
 			<groupId>org.apache.wicket</groupId>
@@ -152,7 +155,8 @@
 							<value>${project.build.directory}/test-classes</value>
 						</systemProperty>
 					</systemProperties>
-					<jettyXml>${project.basedir}/src/test/jetty/jetty.xml,${project.basedir}/src/test/jetty/jetty-ssl.xml,${project.basedir}/src/test/jetty/jetty-http.xml,${project.basedir}/src/test/jetty/jetty-https.xml</jettyXml>
+					<jettyXml>
+						${project.basedir}/src/test/jetty/jetty.xml,${project.basedir}/src/test/jetty/jetty-ssl.xml,${project.basedir}/src/test/jetty/jetty-http.xml,${project.basedir}/src/test/jetty/jetty-https.xml</jettyXml>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -178,4 +182,4 @@
 			</snapshots>
 		</repository>
 	</repositories>
-	</project>
+</project>
