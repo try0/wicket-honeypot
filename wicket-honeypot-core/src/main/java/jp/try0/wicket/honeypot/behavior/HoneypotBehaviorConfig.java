@@ -44,7 +44,7 @@ public class HoneypotBehaviorConfig implements Serializable {
 	/**
 	 * Sets the delay ms of the field addition process.
 	 * 
-	 * @param delayMilleseconds
+	 * @param delayMillisecond delay in milliseconds (negative values are treated as 0)
 	 */
 	public void setDelay(int delayMillisecond) {
 		if (delayMillisecond < 0) {
@@ -76,7 +76,7 @@ public class HoneypotBehaviorConfig implements Serializable {
 	 * Sets whether to monitor [keydown, mousemove, touchstart, touchmove, scroll] event on the client.<br>
 	 * If none of these events are detected, assume the user is a bot.
 	 * 
-	 * @param requireHumanActivity
+	 * @param detectHumanActivity true to add the honeypot field only after user activity is detected
 	 */
 	public void setDetectHumanActivity(boolean detectHumanActivity) {
 		this.detectHumanActivity = detectHumanActivity;
