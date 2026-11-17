@@ -1,14 +1,22 @@
 # wicket-honeypot
-Adds honeypot field to the form.
+Adds a honeypot field to Wicket forms to help block spam bots.
 
-## Version
+## Versions
 
 
 | Version | Wicket |
 | ---- | ---- |
+| [4.0.0](https://search.maven.org/artifact/jp.try0.wicket/wicket-honeypot-core/4.0.0/jar) | 11.x |
 | [3.0.0](https://search.maven.org/artifact/jp.try0.wicket/wicket-honeypot-core/3.0.0/jar) | 10.x |
-| [2.0.0](https://search.maven.org/artifact/jp.try0.wicket/wicket-honeypot-core/2.0.0/jar) | 9.x |
-| [1.0.0](https://search.maven.org/artifact/jp.try0.wicket/wicket-honeypot-core/1.0.0/jar)  | 8.x |
+
+Wicket 11.x
+```xml
+<dependency>
+    <groupId>jp.try0.wicket</groupId>
+    <artifactId>wicket-honeypot-core</artifactId>
+    <version>4.0.0</version>
+</dependency>
+```
 
 Wicket 10.x
 ```xml
@@ -16,24 +24,6 @@ Wicket 10.x
     <groupId>jp.try0.wicket</groupId>
     <artifactId>wicket-honeypot-core</artifactId>
     <version>3.0.0</version>
-</dependency>
-```
-
-Wicket 9.x
-```xml
-<dependency>
-    <groupId>jp.try0.wicket</groupId>
-    <artifactId>wicket-honeypot-core</artifactId>
-    <version>2.0.0</version>
-</dependency>
-```
-
-Wicket 8.x
-```xml
-<dependency>
-    <groupId>jp.try0.wicket</groupId>
-    <artifactId>wicket-honeypot-core</artifactId>
-    <version>1.0.0</version>
 </dependency>
 ```
 
@@ -49,7 +39,7 @@ add(new Form<Void>("form") {
 ```
 
 
-HoneypotBehavior uses JavaScript on the client side to add a honeypot field to the form. The added field is of type text and will be hidden using styles.
+`HoneypotBehavior` uses client-side JavaScript to add a honeypot field to the form. The field is a text input hidden with inline styles:
 
 ```html
 <input 
@@ -60,12 +50,12 @@ HoneypotBehavior uses JavaScript on the client side to add a honeypot field to t
     aria-hidden="true" 
     tabindex="-1" 
     autocomplete="one-time-code" 
-    style="visibility: hidden; position: fixed; z-index: 0; bottom: 0px; left: 0px; width: 0px; margin: 0px 0px 0px -10em;">
+    style="visibility: hidden; position: fixed; z-index: -1; bottom: 0px; left: 0px; width: 0px; margin: 0px 0px 0px -10em;">
 ```
 
 
-The field addition process can be executed with a delay.
-For example, this code determines that requests made within two seconds of the screen being displayed are bot actions.
+The field can be added after a delay.
+For example, the following code treats any form submitted within two seconds of the page loading as a bot submission.
 
 ```java
 add(new Form<Void>("form") {
@@ -77,7 +67,7 @@ add(new Form<Void>("form") {
 ```
 
 
-To display a message and request form resubmission when a user action is mistakenly identified as a bot action, please override the onError method.
+If a real user is mistakenly identified as a bot, you can override `onError` to show a message asking them to submit the form again.
 
 ```java
 add(new Form<Void>("form") {
@@ -86,7 +76,7 @@ add(new Form<Void>("form") {
         add(new HoneypotBehavior(delayMs) {
             @Override
             protected void onError(Form<?> form) {
-                form.error(HomePage.this.getString("honeypot_error_message")); // TODO your prop key
+                form.error(HomePage.this.getString("honeypot_error_message")); // replace with your own property key
             }
         });
     }
@@ -94,26 +84,22 @@ add(new Form<Void>("form") {
 ```
 
 
-
-
-
-With other configs.
+Other options can be set with `HoneypotBehaviorConfig`.
 
 ```java
 add(new Form<Void>("form") {
     {
-        // custom config
         HoneypotBehaviorConfig config = new HoneypotBehaviorConfig();
-        // the field addition process can be executed with a delay.
+        // Delay in milliseconds before the honeypot field is added.
         // default: 0
         config.setDelay(1500);
-        // honeypot field autocomplete attr.
+        // The autocomplete attribute of the honeypot field.
         // default: one-time-code
         config.setAutocomplete("one-time-code");
-        // block submit on the client.
+        // Block submission on the client if the honeypot field is missing or filled in.
         // default: false
         config.setBlockSubmit(true);
-        // If none of [keydown, mousemove, touchstart, touchmove, scroll] events are detected, assume the user is a bot.
+        // Treat the user as a bot unless a keydown, mousemove, touchstart, touchmove, or scroll event is detected.
         // default: false
         config.setDetectHumanActivity(true);
 
