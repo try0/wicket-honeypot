@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>jp.try0.wicket</groupId>
     <artifactId>wicket-honeypot-parent</artifactId>
-    <version>3.0.0</version>
+    <version>4.0.0</version>
     <packaging>pom</packaging>
 
     <modules>
@@ -41,25 +41,25 @@
     </scm>
 
     <properties>
-		<maven.compiler.release>17</maven.compiler.release>
-        <java.version>17</java.version>
+		<maven.compiler.release>21</maven.compiler.release>
+        <java.version>21</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <wicket.version>10.0.0</wicket.version>
-        <guava.version>32.0.0-jre</guava.version>
+        <wicket.version>11.0.0</wicket.version>
+        <guava.version>33.8.0-jre</guava.version>
         <collections4.version>4.2</collections4.version>
 
-        <junit.version>5.6.2</junit.version>
-        <junit-platform-launcher.version>1.6.2</junit-platform-launcher.version>
+        <junit.version>6.1.3</junit.version>
+        <junit-platform-launcher.version>6.1.3</junit-platform-launcher.version>
 
-    	<maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
-		<maven-surefire-plugin.version>3.2.5</maven-surefire-plugin.version>
-		<maven-javadoc-plugin.version>3.6.3</maven-javadoc-plugin.version>
-		<maven-source-plugin.version>3.3.0</maven-source-plugin.version>
-		<maven-gpg-plugin.version>3.2.2</maven-gpg-plugin.version>
+    	<maven-compiler-plugin.version>3.16.0</maven-compiler-plugin.version>
+		<maven-surefire-plugin.version>3.6.1</maven-surefire-plugin.version>
+		<maven-javadoc-plugin.version>3.12.0</maven-javadoc-plugin.version>
+		<maven-source-plugin.version>3.4.0</maven-source-plugin.version>
+		<maven-gpg-plugin.version>3.2.8</maven-gpg-plugin.version>
 
 		<nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
 
-		<versions-maven-plugin.version>2.7</versions-maven-plugin.version>
+		<versions-maven-plugin.version>2.25.2</versions-maven-plugin.version>
     </properties>
 
     <dependencies>
@@ -68,7 +68,7 @@
 		<dependency>
 			<groupId>jakarta.servlet</groupId>
 			<artifactId>jakarta.servlet-api</artifactId>
-			<version>6.0.0</version>
+			<version>6.1.0</version>
 			<scope>test</scope>
 		</dependency>
 
